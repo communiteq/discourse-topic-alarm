@@ -1,0 +1,38 @@
+<DModal @title={{this.modalTitle}} @closeModal={{@closeModal}} class="topic-alarm-editor">
+  <:body>
+    <Input
+      type="text"
+      @value={{this.model.topic.topic_alarm_description}}
+      placeholder={{i18n "topic_alarm.description_placeholder"}}
+    />
+    {{#if this.hasTopicAlarm}}
+      <div class="alert alert-info existing-reminder-at-alert">
+        {{d-icon "far-clock"}}
+        <span>{{i18n "topic_alarm.existing_alarm" at_date_time=this.existingReminderAtFormatted}}</span>
+      </div>
+    {{/if}}
+    <TimeShortcutPicker
+      @timeShortcuts={{this.timeOptions}}
+      @prefilledDatetime={{this.prefilledDatetime}}
+      @onTimeSelected={{this.onTimeSelected}}
+      @hiddenOptions={{this.hiddenTimeShortcutOptions}}
+      @customLabels={{this.customTimeShortcutLabels}}
+      @_itsatrap={{this._itsatrap}}
+    />
+  </:body>
+  <:footer>
+    <DButton
+      @action={{action "setTopicAlarm"}}
+      class="btn-primary"
+      @label="topic_alarm.set_topic_alarm_button.label"
+      @disabled={{this.hasNoTopicAlarm}}
+    />
+    {{#if this.hasExistingTopicAlarm}}
+      <DButton
+        @action={{action "deleteTopicAlarm"}}
+        class="btn-primary"
+        @label="topic_alarm.delete_topic_alarm_button.label"
+      />
+    {{/if}}
+  </:footer>
+</DModal>

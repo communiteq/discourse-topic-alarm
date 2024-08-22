@@ -1,0 +1,8 @@
+discourse_topic_alarm:
+  topic_alarm_enabled:
+    default: false
+    client: true
+  topic_alarm_groups:
+    default: "3"
+    client: false
+    type: group_list

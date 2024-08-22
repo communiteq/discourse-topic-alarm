@@ -1,0 +1,18 @@
+en:
+  js:
+    topic_alarm:
+      alarm_editor:
+        edit: "Edit Topic Alarm"
+        create: "Set Topic Alarm"
+      description_placeholder: "Enter description"
+      title: "Topic Alarm"
+      existing_alarm: "The topic alarm is set at %{at_date_time}"
+      edit_topic_alarm_button:
+        title: "Edit Topic Alarm"
+        label: "Edit Topic Alarm"
+      set_topic_alarm_button:
+        title: "Set Topic Alarm"
+        label: "Set Topic Alarm"
+      delete_topic_alarm_button:
+        title: "Delete Topic Alarm"
+        label: "Delete Topic Alarm"
