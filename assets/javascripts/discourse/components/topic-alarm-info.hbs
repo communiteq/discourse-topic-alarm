@@ -1,7 +1,11 @@
-<div>
-    {{#if this.hasTopicAlarm}}
-        {{d-icon "discourse-bookmark-clock"}}
-        {{this.existingAlarmAtFormatted}}
-        {{this.topicAlarmDescription}}
-    {{/if}}
-</div>
+{{#if this.hasTopicAlarm}}
+  <div class="topic-alarm">
+    <div class="topic-alarm-time">
+      {{d-icon "discourse-bookmark-clock"}}
+      {{this.existingAlarmAtFormatted}}
+    </div>
+    <div class="topic-alarm-description">
+      {{this.topicAlarmDescription}}
+    </div>
+  </div>
+{{/if}}

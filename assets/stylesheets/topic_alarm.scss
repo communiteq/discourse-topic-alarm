@@ -1,0 +1,15 @@
+.topic-alarm {
+  text-align: center;
+  max-width: 757px;
+
+  .topic-alarm-time {
+    color: var(--tertiary);
+    font-size: 1.4em;
+  }
+  .topic-alarm-description {
+    font-size: 1em;
+    font-style: italic;
+    color: var(--primary-very-high);
+  }
+}
+
