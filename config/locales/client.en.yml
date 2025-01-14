@@ -13,6 +13,9 @@ en:
       set_topic_alarm_button:
         title: "Set Topic Alarm"
         label: "Set Topic Alarm"
+      clear_topic_alarm_button:
+        title: "Clear Topic Alarm"
+        label: "Clear Topic Alarm"
       delete_topic_alarm_button:
         title: "Delete Topic Alarm"
         label: "Delete Topic Alarm"

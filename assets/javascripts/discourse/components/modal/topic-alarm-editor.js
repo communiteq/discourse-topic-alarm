@@ -36,7 +36,9 @@ export default class TopicAlarmEditor extends Component {
 
   @action
   onTimeSelected(type, time) {
-    this.model.topic.set("topic_alarm_time",  time.unix());
+    var ts = time.unix();
+    this.model.topic.set("topic_alarm_time",  ts);
+    this.model.topic.set("topic_alarm_user_time",  ts);
   }
 
   get hiddenTimeShortcutOptions() {
@@ -99,6 +101,7 @@ export default class TopicAlarmEditor extends Component {
     })
     .then(() => {
       this.model.topic.set("topic_alarm_time", null);
+      this.model.topic.set("topic_alarm_user_time", null);
       this.model.topic.set("topic_alarm_description", null);
     })
     .catch(popupAjaxError)

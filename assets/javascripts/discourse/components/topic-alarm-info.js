@@ -40,12 +40,21 @@ export default class TopicAlarmInfo extends Component {
   _processMessage(data) {
     if (data.topic_id == this.args.topic.get("id")) {
       this.args.topic.set("topic_alarm_time", data.topic_alarm_time);
+      this.args.topic.set("topic_alarm_user_time", data.topic_alarm_user_time);
       this.args.topic.set("topic_alarm_description", data.topic_alarm_description);
     }
   }
 
   get hasTopicAlarm() {
+    return this.args.topic.get("topic_alarm_user_time") > 0;
+  }
+
+  get hasActiveTopicAlarm() {
     return this.args.topic.get("topic_alarm_time") > 0;
+  }
+
+  get alarmClass() {
+    return this.hasActiveTopicAlarm ? "topic-alarm-active" : "topic-alarm-expired";
   }
 
   get topicAlarmDescription() {
@@ -53,7 +62,7 @@ export default class TopicAlarmInfo extends Component {
   }
 
   get existingAlarmAtFormatted() {
-    return formattedReminderTime(this.args.topic.get("topic_alarm_time") * 1000, this.userTimezone);
+    return formattedReminderTime(this.args.topic.get("topic_alarm_user_time") * 1000, this.userTimezone);
   }
 }
 

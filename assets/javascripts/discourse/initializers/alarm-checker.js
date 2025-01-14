@@ -16,19 +16,53 @@ export default {
         },
         priority: 240,
         label() {
-          return this.topic.topic_alarm_time > 0 ? "topic_alarm.edit_topic_alarm_button.label" : "topic_alarm.set_topic_alarm_button.label"
+          if (this.topic.topic_alarm_time > 0) {
+            return "topic_alarm.edit_topic_alarm_button.label";
+          }
+          else {
+            if (this.topic.topic_alarm_user_time > 0) {
+              return "topic_alarm.clear_topic_alarm_button.label";
+            } else {
+              return "topic_alarm.set_topic_alarm_button.label";
+            }
+          }
         },
         title() {
-          return this.topic.topic_alarm_time > 0 ? "topic_alarm.edit_topic_alarm_button.title" : "topic_alarm.set_topic_alarm_button.label"
+          if (this.topic.topic_alarm_time > 0) {
+            return "topic_alarm.edit_topic_alarm_button.title";
+          }
+          else {
+            if (this.topic.topic_alarm_user_time > 0) {
+              return "topic_alarm.clear_topic_alarm_button.title";
+            } else {
+              return "topic_alarm.set_topic_alarm_button.title";
+            }
+          }
         },
         action() {
-          const modal = container.lookup("service:modal");
-          modal.show(TopicAlarmEditor, {
-            model: {
-              topic: this.topic,
-              existing_alarm: (this.topic.topic_alarm_time > 0)
-            }
-          });
+          if ((this.topic.topic_alarm_time > 0) || (!(this.topic.topic_alarm_user_time) > 0)) {
+            const modal = container.lookup("service:modal");
+            modal.show(TopicAlarmEditor, {
+              model: {
+                topic: this.topic,
+                existing_alarm: (this.topic.topic_alarm_time > 0)
+              }
+            });
+          }
+          else {
+            ajax("/topic-alarm/destroy", {
+              type: "DELETE",
+              data: {
+                topic_id: this.topic.id,
+              }
+            })
+            .then(() => {
+              this.topic.set("topic_alarm_time", null);
+              this.topic.set("topic_alarm_user_time", null);
+              this.topic.set("topic_alarm_description", null);
+            })
+            .catch((error) => popupAjaxError(error));
+          }
         },
         dropdown() {
           return this.site.mobileView;
