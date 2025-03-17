@@ -10,7 +10,7 @@ module Jobs
         .where(name: "topic_alarm_time")
         .where("value::int <= ?", Time.now.to_i)
         .find_each do |custom_field|
-          topic = Topic.find(custom_field.topic_id)
+          topic = Topic.find_by(id: custom_field.topic_id)
           if topic
             notify_groups(topic)
 
