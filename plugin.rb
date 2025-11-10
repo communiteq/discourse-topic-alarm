@@ -1,6 +1,6 @@
 # name: discourse-topic-alarm
 # about: Allows users in specified groups to set an alarm on a topic
-# version: 1.2
+# version: 1.3
 # authors: Communiteq
 
 enabled_site_setting :topic_alarm_enabled
@@ -17,27 +17,29 @@ after_initialize do
   require_relative "app/controllers/discourse_topic_alarm/topic_alarm_controller"
   require_relative "app/jobs/scheduled/topic_alarm_checker"
 
-  add_to_class(:user, :can_set_topic_alarm?) do
-    return false unless SiteSetting.topic_alarm_groups.present?
-    allowed_group_ids = SiteSetting.topic_alarm_groups.split('|').map(&:to_i)
-    (group_ids & allowed_group_ids).any?
-  end
+  reloadable_patch do |plugin|
+    add_to_class(:user, :can_set_topic_alarm?) do
+      return false unless SiteSetting.topic_alarm_groups.present?
+      allowed_group_ids = SiteSetting.topic_alarm_groups.split('|').map(&:to_i)
+      (group_ids & allowed_group_ids).any?
+    end
 
-  add_to_class(:topic, :publish_alarm) do
-    allowed_group_ids = SiteSetting.topic_alarm_groups.split('|').map(&:to_i)
-    user_ids = User.joins(:groups).where(groups: { id: allowed_group_ids }).distinct.pluck(:id)
-    MessageBus.publish("/topic-alarm/", {
-        topic_id: id,
-        topic_alarm_time: custom_fields["topic_alarm_time"],
-        topic_alarm_user_time: custom_fields["topic_alarm_user_time"],
-        topic_alarm_description: custom_fields["topic_alarm_description"]
-      },
-      user_ids: user_ids
-    )
-  end
+    add_to_class(:topic, :publish_alarm) do
+      allowed_group_ids = SiteSetting.topic_alarm_groups.split('|').map(&:to_i)
+      user_ids = User.joins(:groups).where(groups: { id: allowed_group_ids }).distinct.pluck(:id)
+      MessageBus.publish("/topic-alarm/", {
+          topic_id: id,
+          topic_alarm_time: custom_fields["topic_alarm_time"],
+          topic_alarm_user_time: custom_fields["topic_alarm_user_time"],
+          topic_alarm_description: custom_fields["topic_alarm_description"]
+        },
+        user_ids: user_ids
+      )
+    end
 
-  add_to_class(:guardian, :can_set_topic_alarm?) do
-    user && user.can_set_topic_alarm?
+    add_to_class(:guardian, :can_set_topic_alarm?) do
+      user && user.can_set_topic_alarm?
+    end
   end
 
   add_to_serializer(:current_user, :can_set_topic_alarm) do
