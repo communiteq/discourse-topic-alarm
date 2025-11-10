@@ -1,21 +1,27 @@
+---
 en:
+  admin_js:
+    admin:
+      site_settings:
+        categories:
+          discourse_topic_alarm: Topic Alarm
   js:
     topic_alarm:
       alarm_editor:
-        edit: "Edit Topic Alarm"
-        create: "Set Topic Alarm"
-      description_placeholder: "Enter description"
-      title: "Topic Alarm"
-      existing_alarm: "The topic alarm is set at %{at_date_time}"
+        edit: Edit Topic Alarm
+        create: Set Topic Alarm
+      description_placeholder: Enter description
+      title: Topic Alarm
+      existing_alarm: The topic alarm is set at %{at_date_time}
       edit_topic_alarm_button:
-        title: "Edit Topic Alarm"
-        label: "Edit Topic Alarm"
+        title: Edit Topic Alarm
+        label: Edit Alarm
       set_topic_alarm_button:
-        title: "Set Topic Alarm"
-        label: "Set Topic Alarm"
+        title: Set Topic Alarm
+        label: Alarm
       clear_topic_alarm_button:
-        title: "Clear Topic Alarm"
-        label: "Clear Topic Alarm"
+        title: Clear Topic Alarm
+        label: Clear Topic Alarm
       delete_topic_alarm_button:
-        title: "Delete Topic Alarm"
-        label: "Delete Topic Alarm"
+        title: Delete Topic Alarm
+        label: Delete Topic Alarm
