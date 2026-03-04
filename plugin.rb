@@ -1,6 +1,6 @@
 # name: discourse-topic-alarm
 # about: Allows users in specified groups to set an alarm on a topic
-# version: 1.3
+# version: 2026.1
 # authors: Communiteq
 
 enabled_site_setting :topic_alarm_enabled

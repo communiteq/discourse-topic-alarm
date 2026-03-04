@@ -22,14 +22,14 @@
   </:body>
   <:footer>
     <DButton
-      @action={{action "setTopicAlarm"}}
+      @action={{this.setTopicAlarm}}
       class="btn-primary"
       @label="topic_alarm.set_topic_alarm_button.label"
       @disabled={{this.hasNoTopicAlarm}}
     />
     {{#if this.hasExistingTopicAlarm}}
       <DButton
-        @action={{action "deleteTopicAlarm"}}
+        @action={{this.deleteTopicAlarm}}
         class="btn-primary"
         @label="topic_alarm.delete_topic_alarm_button.label"
       />

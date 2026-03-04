@@ -10,7 +10,7 @@ import {
   TIME_SHORTCUT_TYPES,
 } from "discourse/lib/time-shortcut";
 import I18n from "discourse-i18n";
-import { inject as service } from "@ember/service";
+import { service } from "@ember/service";
 
 export default class TopicAlarmEditor extends Component {
   @service currentUser;
