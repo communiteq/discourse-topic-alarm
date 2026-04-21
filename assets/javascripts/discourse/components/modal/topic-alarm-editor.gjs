@@ -1,8 +1,12 @@
 import { tracked } from "@glimmer/tracking";
-import Component from "@ember/component";
+import Component, { Input } from "@ember/component";
 import { action } from "@ember/object";
 import { service } from "@ember/service";
 import ItsATrap from "@discourse/itsatrap";
+import DButton from "discourse/components/d-button";
+import DModal from "discourse/components/d-modal";
+import TimeShortcutPicker from "discourse/components/time-shortcut-picker";
+import icon from "discourse/helpers/d-icon";
 import { ajax } from "discourse/lib/ajax";
 import { popupAjaxError } from "discourse/lib/ajax-error";
 import { formattedReminderTime } from "discourse/lib/bookmark";
@@ -110,4 +114,52 @@ export default class TopicAlarmEditor extends Component {
         this.closeModal();
       });
   }
+
+  <template>
+    <DModal
+      @title={{this.modalTitle}}
+      @closeModal={{@closeModal}}
+      class="topic-alarm-editor"
+    >
+      <:body>
+        <Input
+          type="text"
+          @value={{this.model.topic.topic_alarm_description}}
+          placeholder={{i18n "topic_alarm.description_placeholder"}}
+        />
+        {{#if this.hasTopicAlarm}}
+          <div class="alert alert-info existing-reminder-at-alert">
+            {{icon "far-clock"}}
+            <span>{{i18n
+                "topic_alarm.existing_alarm"
+                at_date_time=this.existingReminderAtFormatted
+              }}</span>
+          </div>
+        {{/if}}
+        <TimeShortcutPicker
+          @timeShortcuts={{this.timeOptions}}
+          @prefilledDatetime={{this.prefilledDatetime}}
+          @onTimeSelected={{this.onTimeSelected}}
+          @hiddenOptions={{this.hiddenTimeShortcutOptions}}
+          @customLabels={{this.customTimeShortcutLabels}}
+          @_itsatrap={{this._itsatrap}}
+        />
+      </:body>
+      <:footer>
+        <DButton
+          @action={{this.setTopicAlarm}}
+          class="btn-primary"
+          @label="topic_alarm.set_topic_alarm_button.label"
+          @disabled={{this.hasNoTopicAlarm}}
+        />
+        {{#if this.hasExistingTopicAlarm}}
+          <DButton
+            @action={{this.deleteTopicAlarm}}
+            class="btn-primary"
+            @label="topic_alarm.delete_topic_alarm_button.label"
+          />
+        {{/if}}
+      </:footer>
+    </DModal>
+  </template>
 }

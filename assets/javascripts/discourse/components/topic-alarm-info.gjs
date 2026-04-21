@@ -1,6 +1,7 @@
 import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
 import { service } from "@ember/service";
+import icon from "discourse/helpers/d-icon";
 import { formattedReminderTime } from "discourse/lib/bookmark";
 import { bind } from "discourse/lib/decorators";
 
@@ -73,4 +74,18 @@ export default class TopicAlarmInfo extends Component {
       this.userTimezone
     );
   }
+
+  <template>
+    {{#if this.hasTopicAlarm}}
+      <div class="topic-alarm {{this.alarmClass}}">
+        <div class="topic-alarm-time">
+          {{icon "discourse-bookmark-clock"}}
+          {{this.existingAlarmAtFormatted}}
+        </div>
+        <div class="topic-alarm-description">
+          {{this.topicAlarmDescription}}
+        </div>
+      </div>
+    {{/if}}
+  </template>
 }
