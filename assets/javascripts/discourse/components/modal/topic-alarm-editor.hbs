@@ -1,4 +1,8 @@
-<DModal @title={{this.modalTitle}} @closeModal={{@closeModal}} class="topic-alarm-editor">
+<DModal
+  @title={{this.modalTitle}}
+  @closeModal={{@closeModal}}
+  class="topic-alarm-editor"
+>
   <:body>
     <Input
       type="text"
@@ -8,7 +12,10 @@
     {{#if this.hasTopicAlarm}}
       <div class="alert alert-info existing-reminder-at-alert">
         {{d-icon "far-clock"}}
-        <span>{{i18n "topic_alarm.existing_alarm" at_date_time=this.existingReminderAtFormatted}}</span>
+        <span>{{i18n
+            "topic_alarm.existing_alarm"
+            at_date_time=this.existingReminderAtFormatted
+          }}</span>
       </div>
     {{/if}}
     <TimeShortcutPicker

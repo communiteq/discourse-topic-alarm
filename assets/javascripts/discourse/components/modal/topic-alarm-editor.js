@@ -28,18 +28,14 @@ export default class TopicAlarmEditor extends Component {
 
   get timeOptions() {
     const shortcuts = timeShortcuts(this.currentUser.user_option.timezone);
-    return [
-      shortcuts.tomorrow(),
-      shortcuts.monday(),
-      shortcuts.nextMonth(),
-    ];
+    return [shortcuts.tomorrow(), shortcuts.monday(), shortcuts.nextMonth()];
   }
 
   @action
   onTimeSelected(type, time) {
     let ts = time.unix();
-    this.model.topic.set("topic_alarm_time",  ts);
-    this.model.topic.set("topic_alarm_user_time",  ts);
+    this.model.topic.set("topic_alarm_time", ts);
+    this.model.topic.set("topic_alarm_user_time", ts);
   }
 
   get hiddenTimeShortcutOptions() {
@@ -52,7 +48,10 @@ export default class TopicAlarmEditor extends Component {
   }
 
   get existingReminderAtFormatted() {
-    return formattedReminderTime(this.model.topic.get("topic_alarm_time") * 1000, this.userTimezone);
+    return formattedReminderTime(
+      this.model.topic.get("topic_alarm_time") * 1000,
+      this.userTimezone
+    );
   }
 
   /*** other functionality */
@@ -81,15 +80,16 @@ export default class TopicAlarmEditor extends Component {
       data: {
         topic_id: this.model.topic.id,
         topic_alarm_time: this.model.topic.get("topic_alarm_time"),
-        topic_alarm_description: this.model.topic.get("topic_alarm_description")
-      }
+        topic_alarm_description: this.model.topic.get(
+          "topic_alarm_description"
+        ),
+      },
     })
-    .then(() => {
-    })
-    .catch(popupAjaxError)
-    .finally(() => {
-      this.closeModal();
-    });
+      .then(() => {})
+      .catch(popupAjaxError)
+      .finally(() => {
+        this.closeModal();
+      });
   }
 
   @action
@@ -98,16 +98,16 @@ export default class TopicAlarmEditor extends Component {
       type: "DELETE",
       data: {
         topic_id: this.model.topic.id,
-      }
+      },
     })
-    .then(() => {
-      this.model.topic.set("topic_alarm_time", null);
-      this.model.topic.set("topic_alarm_user_time", null);
-      this.model.topic.set("topic_alarm_description", null);
-    })
-    .catch(popupAjaxError)
-    .finally(() => {
-      this.closeModal();
-    });
+      .then(() => {
+        this.model.topic.set("topic_alarm_time", null);
+        this.model.topic.set("topic_alarm_user_time", null);
+        this.model.topic.set("topic_alarm_description", null);
+      })
+      .catch(popupAjaxError)
+      .finally(() => {
+        this.closeModal();
+      });
   }
 }

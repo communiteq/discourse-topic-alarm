@@ -19,8 +19,7 @@ export default {
         label() {
           if (this.topic.topic_alarm_time > 0) {
             return "topic_alarm.edit_topic_alarm_button.label";
-          }
-          else {
+          } else {
             if (this.topic.topic_alarm_user_time > 0) {
               return "topic_alarm.clear_topic_alarm_button.label";
             } else {
@@ -31,8 +30,7 @@ export default {
         title() {
           if (this.topic.topic_alarm_time > 0) {
             return "topic_alarm.edit_topic_alarm_button.title";
-          }
-          else {
+          } else {
             if (this.topic.topic_alarm_user_time > 0) {
               return "topic_alarm.clear_topic_alarm_button.title";
             } else {
@@ -41,28 +39,30 @@ export default {
           }
         },
         action() {
-          if ((this.topic.topic_alarm_time > 0) || (!(this.topic.topic_alarm_user_time) > 0)) {
+          if (
+            this.topic.topic_alarm_time > 0 ||
+            !this.topic.topic_alarm_user_time > 0
+          ) {
             const modal = container.lookup("service:modal");
             modal.show(TopicAlarmEditor, {
               model: {
                 topic: this.topic,
-                existing_alarm: (this.topic.topic_alarm_time > 0)
-              }
+                existing_alarm: this.topic.topic_alarm_time > 0,
+              },
             });
-          }
-          else {
+          } else {
             ajax("/topic-alarm/destroy", {
               type: "DELETE",
               data: {
                 topic_id: this.topic.id,
-              }
+              },
             })
-            .then(() => {
-              this.topic.set("topic_alarm_time", null);
-              this.topic.set("topic_alarm_user_time", null);
-              this.topic.set("topic_alarm_description", null);
-            })
-            .catch((error) => popupAjaxError(error));
+              .then(() => {
+                this.topic.set("topic_alarm_time", null);
+                this.topic.set("topic_alarm_user_time", null);
+                this.topic.set("topic_alarm_description", null);
+              })
+              .catch((error) => popupAjaxError(error));
           }
         },
         dropdown() {
@@ -75,6 +75,5 @@ export default {
         },
       });
     });
-  }
+  },
 };
-

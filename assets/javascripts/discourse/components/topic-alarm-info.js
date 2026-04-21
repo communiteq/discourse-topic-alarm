@@ -17,7 +17,7 @@ export default class TopicAlarmInfo extends Component {
   }
 
   willDestroy() {
-super.willDestroy(...arguments);
+    super.willDestroy(...arguments);
     this.unsubscribe();
   }
 
@@ -42,7 +42,10 @@ super.willDestroy(...arguments);
     if (data.topic_id === this.args.topic.get("id")) {
       this.args.topic.set("topic_alarm_time", data.topic_alarm_time);
       this.args.topic.set("topic_alarm_user_time", data.topic_alarm_user_time);
-      this.args.topic.set("topic_alarm_description", data.topic_alarm_description);
+      this.args.topic.set(
+        "topic_alarm_description",
+        data.topic_alarm_description
+      );
     }
   }
 
@@ -55,7 +58,9 @@ super.willDestroy(...arguments);
   }
 
   get alarmClass() {
-    return this.hasActiveTopicAlarm ? "topic-alarm-active" : "topic-alarm-expired";
+    return this.hasActiveTopicAlarm
+      ? "topic-alarm-active"
+      : "topic-alarm-expired";
   }
 
   get topicAlarmDescription() {
@@ -63,7 +68,9 @@ super.willDestroy(...arguments);
   }
 
   get existingAlarmAtFormatted() {
-    return formattedReminderTime(this.args.topic.get("topic_alarm_user_time") * 1000, this.userTimezone);
+    return formattedReminderTime(
+      this.args.topic.get("topic_alarm_user_time") * 1000,
+      this.userTimezone
+    );
   }
 }
-
