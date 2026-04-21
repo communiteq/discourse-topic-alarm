@@ -1,19 +1,20 @@
+import { tracked } from "@glimmer/tracking";
+import Component from "@ember/component";
+import { action } from "@ember/object";
+import { service } from "@ember/service";
+import ItsATrap from "@discourse/itsatrap";
 import { ajax } from "discourse/lib/ajax";
 import { popupAjaxError } from "discourse/lib/ajax-error";
-import { action, get } from "@ember/object";
-import Component from "@ember/component";
-import { tracked } from "@glimmer/tracking";
-import ItsATrap from "@discourse/itsatrap";
 import { formattedReminderTime } from "discourse/lib/bookmark";
 import {
-  timeShortcuts,
   TIME_SHORTCUT_TYPES,
+  timeShortcuts,
 } from "discourse/lib/time-shortcut";
-import I18n from "discourse-i18n";
-import { service } from "@ember/service";
+import { i18n } from "discourse-i18n";
 
 export default class TopicAlarmEditor extends Component {
   @service currentUser;
+
   @tracked prefilledDatetime = null;
   @tracked userTimezone = this.currentUser.user_option.timezone;
 
@@ -36,7 +37,7 @@ export default class TopicAlarmEditor extends Component {
 
   @action
   onTimeSelected(type, time) {
-    var ts = time.unix();
+    let ts = time.unix();
     this.model.topic.set("topic_alarm_time",  ts);
     this.model.topic.set("topic_alarm_user_time",  ts);
   }
@@ -69,8 +70,8 @@ export default class TopicAlarmEditor extends Component {
   }
 
   get modalTitle() {
-    const action = this.hasExistingTopicAlarm ? "edit" : "create";
-    return I18n.t(`topic_alarm.alarm_editor.${action}`);
+    const act = this.hasExistingTopicAlarm ? "edit" : "create";
+    return i18n(`topic_alarm.alarm_editor.${act}`);
   }
 
   @action

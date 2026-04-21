@@ -1,8 +1,8 @@
 import Component from "@glimmer/component";
-import { service } from "@ember/service";
 import { tracked } from "@glimmer/tracking";
+import { service } from "@ember/service";
 import { formattedReminderTime } from "discourse/lib/bookmark";
-import { bind } from "discourse-common/utils/decorators";
+import { bind } from "discourse/lib/decorators";
 
 export default class TopicAlarmInfo extends Component {
   @service currentUser;
@@ -17,6 +17,7 @@ export default class TopicAlarmInfo extends Component {
   }
 
   willDestroy() {
+super.willDestroy(...arguments);
     this.unsubscribe();
   }
 
@@ -38,7 +39,7 @@ export default class TopicAlarmInfo extends Component {
 
   @bind
   _processMessage(data) {
-    if (data.topic_id == this.args.topic.get("id")) {
+    if (data.topic_id === this.args.topic.get("id")) {
       this.args.topic.set("topic_alarm_time", data.topic_alarm_time);
       this.args.topic.set("topic_alarm_user_time", data.topic_alarm_user_time);
       this.args.topic.set("topic_alarm_description", data.topic_alarm_description);

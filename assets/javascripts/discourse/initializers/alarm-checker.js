@@ -1,5 +1,6 @@
-import { withPluginApi } from "discourse/lib/plugin-api";
 import { ajax } from "discourse/lib/ajax";
+import { popupAjaxError } from "discourse/lib/ajax-error";
+import { withPluginApi } from "discourse/lib/plugin-api";
 import TopicAlarmEditor from "../components/modal/topic-alarm-editor";
 
 export default {
@@ -70,10 +71,10 @@ export default {
         classNames: ["topic-alarm"],
         dependentKeys: ["topic.topic_alarm_time"],
         displayed() {
-          return currentUser?.can_set_topic_alarm
+          return currentUser?.can_set_topic_alarm;
         },
       });
     });
   }
-}
+};
 
