@@ -65,7 +65,7 @@ export default {
           }
         },
         dropdown() {
-          return this.site.mobileView;
+          return false; // if it is in dropdown, keyboard input does not work
         },
         classNames: ["topic-alarm"],
         dependentKeys: ["topic.topic_alarm_time"],
