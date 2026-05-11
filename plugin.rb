@@ -1,6 +1,6 @@
 # name: discourse-topic-alarm
 # about: Allows users in specified groups to set an alarm on a topic
-# version: 2026.1.1
+# version: 2026.1.2
 # authors: Communiteq
 
 enabled_site_setting :topic_alarm_enabled
@@ -8,8 +8,8 @@ enabled_site_setting :topic_alarm_enabled
 register_asset "stylesheets/topic_alarm.scss"
 register_asset "stylesheets/topic_alarm_mobile.scss", :mobile
 
-register_svg_icon("bell")
-register_svg_icon("far-bell")
+register_svg_icon("clock")
+register_svg_icon("far-clock")
 
 require_relative 'lib/discourse_topic_alarm/engine'
 

@@ -77,7 +77,12 @@ export default class TopicAlarmEditor extends Component {
     return i18n(`topic_alarm.alarm_editor.${act}`);
   }
 
-  @action
+  get buttonTitle() {
+    const act = this.hasExistingTopicAlarm ? "edit" : "set";
+    return `topic_alarm.${act}_topic_alarm_button.label`;
+  }
+
+@action
   setTopicAlarm() {
     ajax("/topic-alarm/set", {
       type: "POST",
@@ -149,13 +154,13 @@ export default class TopicAlarmEditor extends Component {
         <DButton
           @action={{this.setTopicAlarm}}
           class="btn-primary"
-          @label="topic_alarm.set_topic_alarm_button.label"
+          @label={{this.buttonTitle}}
           @disabled={{this.hasNoTopicAlarm}}
         />
         {{#if this.hasExistingTopicAlarm}}
           <DButton
             @action={{this.deleteTopicAlarm}}
-            class="btn-primary"
+            class="btn-danger"
             @label="topic_alarm.delete_topic_alarm_button.label"
           />
         {{/if}}

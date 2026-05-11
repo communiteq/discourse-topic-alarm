@@ -13,7 +13,7 @@ export default {
       api.registerTopicFooterButton({
         id: "topic-alarm",
         icon() {
-          return this.topic.topic_alarm_time > 0 ? "bell" : "far-bell";
+          return this.topic.topic_alarm_time > 0 ? "clock" : "far-clock";
         },
         priority: 240,
         label() {
