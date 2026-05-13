@@ -69,7 +69,7 @@ export default {
           return false; // if it is in dropdown, keyboard input does not work
         },
         classNames: ["topic-alarm"],
-        dependentKeys: ["topic.topic_alarm_time"],
+        dependentKeys: ["topic.topic_alarm_time", "topic.topic_alarm_user_time"],
         displayed() {
           return currentUser?.can_set_topic_alarm;
         },
